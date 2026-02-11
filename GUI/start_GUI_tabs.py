@@ -40,7 +40,7 @@ layout = [[sg.TabGroup([
         sg.Tab('Translation', eval_column)
     ]])],
 ]
-window = sg.Window('ANIMAL-SPOT-GUI', layout, finalize=True)
+window = sg.Window('BatSpot: The ANIMAL-SPOT based GUI', layout, finalize=True)
 #sg.Print('All Re-routing complete, you can see what is happening in this Debug window. \n'
 #         'Please do not close this Debug window until you are finished with this program', do_not_reroute_stdout=False)
 while True:
