@@ -9,9 +9,9 @@ working_directory=os.getcwd()
 
 sg.set_options(font=("Arial Bold",14))
 
-p_src_dir_label=sg.Text("ANIMAL-SPOT source directory:")
-p_src_dir_input=sg.InputText(key="-p_src_dir-")
-p_src_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
+#p_src_dir_label=sg.Text("ANIMAL-SPOT source directory:")
+#p_src_dir_input=sg.InputText(key="-p_src_dir-")
+#p_src_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
 p_model_dir_label=sg.Text("Path model file:")
 p_model_dir_input=sg.InputText(key="-p_model_dir-")
@@ -78,7 +78,7 @@ p_start_prediction_button=sg.Button(button_text="Start prediction", key="p_start
 #sg.Print('Re-routing pred_GUI to Debug stdout', do_not_reroute_stdout=False)
 
 pred_layout=[
-    [p_src_dir_label, p_src_dir_input, p_src_dir_filebrowser],
+    #[p_src_dir_label, p_src_dir_input, p_src_dir_filebrowser],
     [p_model_dir_label, p_model_dir_input, p_model_dir_filebrowser],
     [p_log_dir_label, p_log_dir_input, p_log_dir_filebrowser],
     [p_output_dir_label, p_output_dir_input, p_output_dir_filebrowser],
@@ -133,11 +133,11 @@ def PredhandleInput(event, values, window):
 def generatePredConfig(values):
     file = open(p_save_config_Input.get(), "w")
     #Directorys
-    if values["-p_src_dir-"] == "":
-        sg.popup_error("ANIMAL-SPOT source File not set")
-        file.close()
-        return
-    file.write("src_dir=" + str(values["-p_src_dir-"]) + "\n")
+    #if values["-p_src_dir-"] == "":
+    #    sg.popup_error("ANIMAL-SPOT source File not set")
+    #    file.close()
+    #    return
+    #file.write("src_dir=" + str(values["-p_src_dir-"]) + "\n")
 
     if values["-p_model_dir-"] == "":
         sg.popup_error("Model directory not specified")
@@ -219,11 +219,11 @@ def loadPredConfig(values, window):
     for line in lines:
         if line.__contains__("#") or line.__contains__("*"):
             continue
-        if line.__contains__("src_dir="):
-            val = line.split("=")[1]
-            val = val.split("\n")[0]
-            window['-p_src_dir-'].update(val)
-            values['-p_src_dir-'] = val
+        #if line.__contains__("src_dir="):
+        #    val = line.split("=")[1]
+        #    val = val.split("\n")[0]
+        #    window['-p_src_dir-'].update(val)
+        #    values['-p_src_dir-'] = val
         if line.__contains__("model_path="):
             val = line.split("=")[1]
             val = val.split("\n")[0]
@@ -332,13 +332,13 @@ def startPrediction_old(values):
     pred_cmd = pythonexe + " -W ignore::UserWarning"
 
     #Directorys
-    if values["-p_src_dir-"] == "":
-        sg.popup_error("ANIMAL-SPOT source File not set")
-        return
-    elif not os.path.isfile(values["-p_src_dir-"] + "/predict.py"):
-        sg.popup_error("Source File error")
-        return
-    pred_cmd = pred_cmd + " " + values["-p_src_dir-"] + "/predict.py"
+    #if values["-p_src_dir-"] == "":
+    #    sg.popup_error("ANIMAL-SPOT source File not set")
+    #    return
+    #elif not os.path.isfile(values["-p_src_dir-"] + "/predict.py"):
+    #    sg.popup_error("Source File error")
+    #    return
+    #pred_cmd = pred_cmd + " " + values["-p_src_dir-"] + "/predict.py"
 
     if values["-p_model_dir-"] == "":
         sg.popup_error("Model directory not specified")

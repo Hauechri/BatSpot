@@ -11,9 +11,9 @@ working_directory=os.getcwd()
 
 sg.set_options(font=("Arial Bold",14))
 
-t_src_dir_label=sg.Text("ANIMAL-SPOT source directory:")
-t_src_dir_input=sg.InputText(key="-t_src_dir-")
-t_src_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
+#t_src_dir_label=sg.Text("ANIMAL-SPOT source directory:")
+#t_src_dir_input=sg.InputText(key="-t_src_dir-")
+#t_src_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
 t_data_dir_label=sg.Text("Path folder training examples:")
 t_data_dir_input=sg.InputText(key="-t_data_dir-")
@@ -171,7 +171,7 @@ t_start_prediction_button=sg.Button(button_text="Start training", key="t_start")
 train_layout=[
     #[t_train_or_retrain_label, t_train_or_retrain],
     #[t_model_dir_relabel, t_model_dir_reinput, t_model_dir_refilebrowser],
-    [t_src_dir_label,t_src_dir_input,t_src_dir_filebrowser],
+    #[t_src_dir_label,t_src_dir_input,t_src_dir_filebrowser],
     [t_data_dir_label,t_data_dir_input,t_data_dir_filebrowser],
     [t_noise_dir_label,t_noise_dir_input,t_noise_dir_filebrowser],
     [t_model_dir_label, t_model_dir_input, t_model_dir_folderbrowser],
@@ -289,11 +289,11 @@ def TrainhandleInput(event, values, window):
 def generateTrainConfig(values):
     file = open(t_save_config_Input.get(), "w")
     # Directorys
-    if values["-t_src_dir-"] == "":
-        sg.popup_error("ANIMAL-SPOT source File not set")
-        file.close()
-        return
-    file.write("src_dir=" + str(values["-t_src_dir-"]) + "\n")
+    #if values["-t_src_dir-"] == "":
+    #    sg.popup_error("ANIMAL-SPOT source File not set")
+    #    file.close()
+    #    return
+    #file.write("src_dir=" + str(values["-t_src_dir-"]) + "\n")
 
     if values["-t_model_dir-"] == "":
         sg.popup_error("Model save directory not specified")
@@ -443,11 +443,11 @@ def loadTrainConfig(values, window):
     for line in lines:
         if line.__contains__("#") or line.__contains__("*"):
             continue
-        if line.__contains__("src_dir="):
-            val = line.split("=")[1]
-            val = val.split("\n")[0]
-            window['-t_src_dir-'].update(val)
-            values['-t_src_dir-'] = val
+        #if line.__contains__("src_dir="):
+        #    val = line.split("=")[1]
+        #    val = val.split("\n")[0]
+        #    window['-t_src_dir-'].update(val)
+        #    values['-t_src_dir-'] = val
         if line.__contains__("data_dir="):
             val = line.split("=")[1]
             val = val.split("\n")[0]
@@ -662,13 +662,13 @@ def startTraining_old(values):
     ASG_path = GUI_path.parent.absolute()
     pythonexe = 'python'#os.path.join(ASG_path, 'venv/Scripts/python.exe')
     train_cmd = pythonexe + " -W ignore::UserWarning"
-    if values["-t_src_dir-"] == "":
-        sg.popup_error("ANIMAL-SPOT source File not set")
-        return
-    elif not os.path.isfile(values["-t_src_dir-"]+"/main.py"):
-        sg.popup_error("Source File error")
-        return
-    train_cmd = train_cmd + " " + values["-t_src_dir-"]+"/main.py"
+    #if values["-t_src_dir-"] == "":
+    #    sg.popup_error("ANIMAL-SPOT source File not set")
+    #    return
+    #elif not os.path.isfile(values["-t_src_dir-"]+"/main.py"):
+    #    sg.popup_error("Source File error")
+    #    return
+    #train_cmd = train_cmd + " " + values["-t_src_dir-"]+"/main.py"
 
     #Directorys
     if values["-t_model_dir-"] == "":
