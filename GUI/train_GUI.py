@@ -15,22 +15,22 @@ t_src_dir_label=sg.Text("ANIMAL-SPOT source directory:")
 t_src_dir_input=sg.InputText(key="-t_src_dir-")
 t_src_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_data_dir_label=sg.Text("Data directory:")
+t_data_dir_label=sg.Text("Path folder training examples:")
 t_data_dir_input=sg.InputText(key="-t_data_dir-")
 t_data_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_noise_dir_label=sg.Text("Noise directory:")
+t_noise_dir_label=sg.Text("Path folder augmentation noise examples (optional):")
 t_noise_dir_input=sg.InputText(key="-t_noise_dir-")
 t_noise_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_cache_dir_label=sg.Text("Cache directory:")
+t_cache_dir_label=sg.Text("Path folder to store cache (optional):")
 t_cache_dir_input=sg.InputText(key="-t_cache_dir-")
 t_cache_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
 #t_train_or_retrain_label=sg.Text("Enable retrain:")
 #t_train_or_retrain=sg.Checkbox(text="", default=False, key="-t_tore-")
 
-t_model_dir_label=sg.Text("Path to train model directory:")
+t_model_dir_label=sg.Text("Path folder to store model:")
 t_model_dir_input=sg.InputText(key="-t_model_dir-")
 t_model_dir_folderbrowser=sg.FolderBrowse(initial_folder=working_directory)
 
@@ -38,24 +38,24 @@ t_model_dir_folderbrowser=sg.FolderBrowse(initial_folder=working_directory)
 #t_model_dir_reinput=sg.InputText(key="-t_model_redir-")
 #t_model_dir_refilebrowser=sg.FileBrowse(initial_folder=working_directory)
 
-t_checkpoint_dir_label=sg.Text("Checkpoint directory:")
+t_checkpoint_dir_label=sg.Text("Path folder to store checkpoints:")
 t_checkpoint_dir_input=sg.InputText(key="-t_checkpoint_dir-")
 t_checkpoint_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_transfer_learning_label=sg.Text("Use Transfer Learning:")
-t_transfer_learning=sg.Checkbox(text="", default=False, key="-t_transfer-")
-
-t_transfer_model_label=sg.Text("Transfer model file:")
-t_transfer_model_input=sg.InputText(key="-t_transfer_model-")
-t_transfer_model_filebrowser=sg.FileBrowse(initial_folder=working_directory)
-
-t_log_dir_label=sg.Text("Log directory:")
+t_log_dir_label=sg.Text("Path folder to store log:")
 t_log_dir_input=sg.InputText(key="-t_log_dir-")
 t_log_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_summary_dir_label=sg.Text("Summary directory:")
+t_summary_dir_label=sg.Text("Path folder to store summary:")
 t_summary_dir_input=sg.InputText(key="-t_summary_dir-")
 t_summary_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
+
+t_transfer_learning_label=sg.Text("Use retraining or transfer learning:")
+t_transfer_learning=sg.Checkbox(text="", default=False, key="-t_transfer-")
+
+t_transfer_model_label=sg.Text("Path model for retraining or transfer learning:")
+t_transfer_model_input=sg.InputText(key="-t_transfer_model-")
+t_transfer_model_filebrowser=sg.FileBrowse(initial_folder=working_directory)
 
 t_debug_label=sg.Text("Enable debug:")
 t_debug_checkbox=sg.Checkbox(text="", default=False, key="-t_debug-")
@@ -78,7 +78,7 @@ t_filter_broken_audio_checkbox=sg.Checkbox(text="", default=False, key="-t_filte
 t_min_max_norm_label=sg.Text("Use min max normalization:")
 t_min_max_norm_checkbox=sg.Checkbox(text="", default=True, key="-t_min_max_norm-")
 
-t_sequence_len_label=sg.Text("ANIMAL-SPOT window size in ms:")
+t_sequence_len_label=sg.Text("Window size in ms:")
 t_sequence_len_input=sg.InputText(key="-t_sequence_len-", default_text="20")
 t_sequence_len_reset=sg.Button(button_text="default", key="t_default_sequence_len")
 
@@ -154,7 +154,7 @@ t_fmin_label=sg.Text("Frequency minimum:")
 t_fmin_input=sg.InputText(key="-t_fmin-", default_text="18000")
 t_fmin_reset=sg.Button(button_text="default", key="t_default_fmin")
 
-t_fmax_label=sg.Text("Frequency minimum:")
+t_fmax_label=sg.Text("Frequency maximum:")
 t_fmax_input=sg.InputText(key="-t_fmax-", default_text="90000")
 t_fmax_reset=sg.Button(button_text="default", key="t_default_fmax")
 
@@ -163,7 +163,7 @@ t_save_config_Input=sg.Input(key="t_save_config", enable_events=True, visible=Fa
 t_load_config_button=sg.FileBrowse(button_text="Load settings")
 t_load_config_Input=sg.Input(key="t_load_config", enable_events=True, visible=False)
 
-t_start_prediction_button=sg.Button(button_text="Start Training", key="t_start")
+t_start_prediction_button=sg.Button(button_text="Start training", key="t_start")
 #t_output = sg.Output(size=(67, 10))
 
 #sg.Print('Re-routing train_GUI to Debug stdout', do_not_reroute_stdout=False)
