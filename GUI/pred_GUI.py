@@ -40,9 +40,9 @@ p_hop_label=sg.Text("Prediction hop size in ms:")
 p_hop_input=sg.InputText(key="-p_hop-", default_text="100")
 p_hop_reset=sg.Button(button_text="default", key="p_default_hop")
 
-# p_threshold_label=sg.Text("Prediction threshold:")
-# p_threshold_input=sg.InputText(key="-p_threshold-", default_text="0.75")
-# p_threshold_reset=sg.Button(button_text="default", key="p_default_threshold")
+p_threshold_label=sg.Text("Prediction threshold:")
+p_threshold_input=sg.InputText(key="-p_threshold-", default_text="0.75")
+p_threshold_reset=sg.Button(button_text="default", key="p_default_threshold")
 
 p_no_cuda_label=sg.Text("Use cuda:")
 p_no_cuda_checkbox=sg.Checkbox(text="", default=True, key="-p_no_cuda-")
@@ -81,12 +81,12 @@ pred_layout=[
     #[p_src_dir_label, p_src_dir_input, p_src_dir_filebrowser],
     [p_model_dir_label, p_model_dir_input, p_model_dir_filebrowser],
     [p_log_dir_label, p_log_dir_input, p_log_dir_filebrowser],
-    [p_output_dir_label, p_output_dir_input, p_output_dir_filebrowser],
     [p_input_file_label, p_input_file_input, p_input_file_filebrowser],
+    [p_output_dir_label, p_output_dir_input, p_output_dir_filebrowser],
+    [p_threshold_label, p_threshold_input, p_threshold_reset],
     [p_debug_label, p_debug_checkbox],
     [p_sequence_len_label, p_sequence_len_input, p_sequence_len_reset],
     [p_hop_label, p_hop_input, p_hop_reset],
-    # [p_threshold_label, p_threshold_input, p_threshold_reset],
     [p_no_cuda_label, p_no_cuda_checkbox],
     [p_visualize_label, p_visualize_checkbox],
     [p_jit_load_label, p_jit_load_checkbox],
