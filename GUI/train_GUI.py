@@ -5,6 +5,11 @@ import logging
 import multiprocessing as mp
 import threading
 from pathlib import Path
+
+GUI_path = Path(os.path.abspath(os.path.dirname(__file__)))
+ASG_path = GUI_path.parent.absolute()
+sys.path.insert(0, str(ASG_path))
+
 from animal_spot.main import start_train, build_args
 
 working_directory=os.getcwd()
