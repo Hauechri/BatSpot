@@ -1,10 +1,4 @@
-Depository for ANIMAL-SPOT-GUI. A Vendored Package for ANIMAL-SPOT with a GUI 
-for Simeon and Christian. 
-
-This Development Repository only contains the source code.
-The Vendor which is required for this Project can be found here.
-
-<https://drive.google.com/file/d/1MpZqZImULuvYgjgwKjA-rJDLmR4VBlgq/view?usp=sharing>
+Repository for BatSpot - a CNN tool to detect and classify bat vocalisations.
 
 # Content
 
@@ -18,129 +12,152 @@ The Vendor which is required for this Project can be found here.
 
 # Requirements
 
-Python >=3.8 & <=3.12
+For the GUI: none (if using the Windows exe) or Python 3.10 (if installing
+in any other way).
+
+For the underlying ANIMAL-SPOT source code (which can still run without the
+GUI): Python >=3.8 & <=3.12.
 
 # Installation
 
 ## Windows
 
-0. Make sure you have the correct version of Python (version 3.10.11 was used
-to develop the GUI, but later versions might also work). To test which version 
-you have, simply open a Windows PowerShell and type  `python -- version`. To 
-download another version, go to this link: <https://www.python.org/downloads/> 
-and make sure it is set as the default. Also, make sure to tick 
-`Add python to PATH` during installation.
+### Using the exe
 
-1. Download this repository and unzip.
+1. Download this zip file: **link**.
 
-2. Download the Vendored package here: 
-<https://drive.google.com/file/d/1MpZqZImULuvYgjgwKjA-rJDLmR4VBlgq/view?usp=sharing> 
-and unzip. Place the `VENDOR` folder inside the `ANIMAL-SPOT-GUI-master` 
-folder.
+2. Unzip.
 
-3. Double click the `run_ANIMAL-SPOT-GUI.bat` file. Your institution might 
-block this. This can be circumvented by right-clicking the file, go to 
-`Properties` and click `Unblock`.
+3. Click on the BatSpot.exe.
 
-4. The GUI should now open. If not, contact <simeonqs@hotmail.com> or open an 
-issue on GitHub.
+### Installing yourself
 
-## Mac
-
-Installation on Mac is still in the developmental phase and remains untested, 
-please contact <simeonqs@hotmail.com> with any questions. 
-
-0. Make sure you have the correct version of Python (version 3.10.11 was used
-to develop the GUI, but later versions might also work). To test which version 
-you have, simply open a Terminal window and type `python -- version`. To 
-change your Python version you first need Homebrew:
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Then install the correct version of Python:
-
-```
-brew install pyenv
-pyenv install 3.10.11
-pyenv global 3.10.11
-```
+0. Make sure you have the correct version of Python (version 3.10.11). To test 
+which version you have, simply open a Windows PowerShell and type  
+`python -- version`. To download another version, go to this link: 
+<https://www.python.org/downloads/> and make sure it is set as the default. 
+Also, make sure to tick `Add python to PATH` during installation.
 
 1. Download this repository and unzip.
 
 2. Make a virtual environment and install all requirements. Copy the full path
 to the repository and update the first line, then run:
 
-```
-cd /path/to/ANIMAL-SPOT-GUI-master-main
-python -m venv venv
-source venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install torch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1
-pip install -r requirements.txt
-```
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python -m venv venv
+  source venv/bin/activate
+  pip install --upgrade pip setuptools wheel
+  pip install torch torchvision torchaudio
+  pip install -r requirements.txt
+  ```
 
-3. Start the GUI. Copy the full path to the repository and update the first 
+3. To start the GUI, copy the full path to the repository and update the first 
 line, then run:
 
-```
-cd /path/to/ANIMAL-SPOT-GUI-master-main
-python -m venv venv
-python GUI/start_GUI_tabs.py
-```
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python -m venv venv
+  python GUI/start_GUI_tabs.py
+  ```
+
+4. The GUI should now open. If not, contact <simeonqs@hotmail.com> or open an 
+issue on GitHub.
+## Mac
+
+Installation on Mac is still in the developmental phase and remains untested, 
+please contact <simeonqs@hotmail.com> with any questions. 
+
+0. Make sure you have the correct version of Python (version 3.10.11). To test 
+which version you have, simply open a Terminal window and type 
+`python -- version`. To change your Python version you first need Homebrew:
+
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+  
+  Then install the correct version of Python:
+  
+  ```
+  brew install pyenv
+  pyenv install 3.10.11
+  pyenv global 3.10.11
+  ```
+
+1. Download this repository and unzip.
+
+2. Make a virtual environment and install all requirements. Copy the full path
+to the repository and update the first line, then run:
+
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python -m venv venv
+  source venv/bin/activate
+  pip install --upgrade pip setuptools wheel
+  pip install torch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1
+  pip install -r requirements.txt
+  ```
+
+3. To start the GUI, copy the full path to the repository and update the first 
+line, then run:
+
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python -m venv venv
+  python GUI/start_GUI_tabs.py
+  ```
 
 4. The GUI should now open. If not, contact <simeonqs@hotmail.com> or open an 
 issue on GitHub.
 
 ## Linux
 
-0. Make sure you have the correct version of Python (version 3.10.11 was used
-to develop the GUI, but later versions might also work). To test which version 
-you have, simply open a Terminal window and type `python -- version`. To 
-change your Python version on Ubuntu/Debian:
+0. Make sure you have the correct version of Python (version 3.10.11). To test 
+which version you have, simply open a Terminal window and type 
+`python -- version`. To change your Python version on Ubuntu/Debian:
 
-```
-sudo apt update
-sudo apt install software-properties-common -y
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-
-sudo apt install python3.10 python3.10-venv python3.10-dev -y
-
-python3.10 --version
-```
-
-To make it your default run:
-
-```
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
-sudo update-alternatives --config python3
-```
+  ```
+  sudo apt update
+  sudo apt install software-properties-common -y
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt update
+  
+  sudo apt install python3.10 python3.10-venv python3.10-dev -y
+  
+  python3.10 --version
+  ```
+  
+  To make it your default run (otherwise it will still run the correct version
+  in the virtual environment - venv):
+  
+  ```
+  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+  sudo update-alternatives --config python3
+  ```
 
 1. Download this repository and unzip.
 
 2. Make a virtual environment and install all requirements. Copy the full path
 to the repository and update the first line, then run:
 
-```
-cd /path/to/ANIMAL-SPOT-GUI-master-main
-python -m venv venv
-source venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 \
-    torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
-pip install -r requirements.txt
-```
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python3.10 -m venv venv
+  source venv/bin/activate
+  pip install --upgrade pip setuptools wheel
+  pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 \
+      torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+  pip install -r requirements.txt
+  ```
 
-3. Start the GUI. Copy the full path to the repository and update the first 
+3. To start the GUI, copy the full path to the repository and update the first 
 line, then run:
 
-```
-cd /path/to/ANIMAL-SPOT-GUI-master-main
-python -m venv venv
-python GUI/start_GUI_tabs.py
-```
+  ```
+  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  python -m venv venv
+  python GUI/start_GUI_tabs.py
+  ```
 
 4. The GUI should now open. If not, contact <simeonqs@hotmail.com> or open an 
 issue on GitHub.
@@ -419,6 +436,15 @@ folder without sub folders.
   the more 'certain' the model needs to be, before it predicts a detection. A 
   good starting point is 0.5, after which a validation set can be used to 
   balance false positives and false negatives.
+  
+# FAQ
+
+- After n number of files are processed I get a system error saying that there
+was a problem opening a file, but this file is not corrupt, how do I fix this?
+
+  This issue is only known to occur on Linux, by running `ulimit -n 65535` just
+  before opening the GUI, you should be able to avoid the system running into 
+  the file descriptor limit.
 
 # TODO
 
