@@ -1,11 +1,9 @@
 import os
 import sys
 from pathlib import Path
-# Add vendor directory to module search path
 GUI_path = Path(os.path.abspath(os.path.dirname(__file__)))
 ASG_path = GUI_path.parent.absolute()
-vendor_dir = os.path.join(ASG_path, 'VENDOR')
-sys.path.append(vendor_dir)
+sys.path.append(ASG_path)
 
 import utils.PySimpleGUIQt as sg
 from train_GUI import getTrainGUI, TrainhandleInput
