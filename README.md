@@ -44,7 +44,7 @@ Also, make sure to tick `Add python to PATH` during installation.
 to the repository and update the first line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python -m venv venv
   source venv/bin/activate
   pip install --upgrade pip setuptools wheel
@@ -56,13 +56,14 @@ to the repository and update the first line, then run:
 line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python -m venv venv
   python GUI/start_GUI_tabs.py
   ```
 
 4. The GUI should now open. If not, contact <simeonqs@hotmail.com> or open an 
 issue on GitHub.
+
 ## Mac
 
 Installation on Mac is still in the developmental phase and remains untested, 
@@ -90,7 +91,7 @@ which version you have, simply open a Terminal window and type
 to the repository and update the first line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python -m venv venv
   source venv/bin/activate
   pip install --upgrade pip setuptools wheel
@@ -102,7 +103,7 @@ to the repository and update the first line, then run:
 line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python -m venv venv
   python GUI/start_GUI_tabs.py
   ```
@@ -141,7 +142,7 @@ which version you have, simply open a Terminal window and type
 to the repository and update the first line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python3.10 -m venv venv
   source venv/bin/activate
   pip install --upgrade pip setuptools wheel
@@ -154,7 +155,7 @@ to the repository and update the first line, then run:
 line, then run:
 
   ```
-  cd /path/to/ANIMAL-SPOT-GUI-master-main
+  cd /path/to/BatSpot-main
   python -m venv venv
   python GUI/start_GUI_tabs.py
   ```
@@ -172,7 +173,8 @@ automatically be shortened by randomly selecting a section of the correct
 duration. Clips that are shorter will automatically be zero-buffered. The audio
 files have to be named correctly for BatSpot to be able to retrieve all the 
 meta data needed for training. This structure is the same as for the original
-ANIMAL-SPOT (**link**) and the following is taken from that repository:
+ANIMAL-SPOT (<https://github.com/ChristianBergler/ANIMAL-SPOT>) and the 
+following is taken from that repository:
 
 ---------
 
@@ -247,7 +249,7 @@ sub folders (see below).
 `Load settings` button.
 
   - `ANIMAL-SPOT source directory`: path to folder named 
-  `ANIMAL-SPOT-GUI-master` (this repository).
+  `BatSpot-main-master` (this repository).
   - `Path folder training examples`:path to the folder with the audio examples 
   (.wav)
   - `Path folder augmentation noise examples (optional)`: the path to the 
@@ -388,7 +390,7 @@ windows with the same prediction are merged into a single annotation during
 the translation step.
 
   - `ANIMAL-SPOT source directory`: path to folder named 
-  `ANIMAL-SPOT-GUI-master` (this repository).
+  `BatSpot-main-master` (this repository).
   - `Path model file`: path to the model file to be used (usually named 
   `ANIMAL-SPOT.pk`)
   - `Path folder to store log`: path to the folder where the log file should
