@@ -251,8 +251,6 @@ sub folders (see below).
 3. Fill out the required fields, or load a previous config file using the 
 `Load settings` button.
 
-  - `ANIMAL-SPOT source directory`: path to folder named 
-  `BatSpot-main-master` (this repository).
   - `Path folder training examples`:path to the folder with the audio examples 
   (.wav)
   - `Path folder augmentation noise examples (optional)`: the path to the 
@@ -392,16 +390,14 @@ extension `.WAV`:
 windows with the same prediction are merged into a single annotation during 
 the translation step.
 
-  - `ANIMAL-SPOT source directory`: path to folder named 
-  `BatSpot-main-master` (this repository).
   - `Path model file`: path to the model file to be used (usually named 
   `ANIMAL-SPOT.pk`)
+  - `Path folder with input files`: path to the folder with audio files for
+  prediction.
   - `Path folder to store log`: path to the folder where the log file should
   be store. This file contains the console output.
   - `Path folder to store output`: path to the folder where output will be 
   stored. Each file gets a prediction file with extension `_predict_output.log`
-  - `Path folder with input files`: path to the folder with audio files for
-  prediction.
   - `Enable debug`: if checked the script is run with more detailed output.
   - `Prediction window size in ms`: the window size use for prediction (in ms).
   - `Prediction hop size in ms`: the overlap between windows (in ms).
