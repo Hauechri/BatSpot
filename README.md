@@ -40,24 +40,27 @@ Also, make sure to tick `Add python to PATH` during installation.
 
 1. Download this repository and unzip.
 
-2. Make a virtual environment and install all requirements. Copy the full path
-to the repository and update the first line, then run:
+2. Open a Command Prompt window (not PowerShell), make a virtual environment 
+and install all requirements. To do this, copy the full path to the repository 
+and update the first line, then run:
 
   ```
   cd /path/to/BatSpot-main
   python -m venv venv
-  source venv/bin/activate
-  pip install --upgrade pip setuptools wheel
-  pip install torch torchvision torchaudio
+  .\venv\Scripts\Activate
+  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
   pip install -r requirements.txt
   ```
+  
+Note that this installs torch for CPU only. If you want to use a GPU, see the
+lines for Linux.
 
 3. To start the GUI, copy the full path to the repository and update the first 
 line, then run:
 
   ```
   cd /path/to/BatSpot-main
-  python -m venv venv
+  .\venv\Scripts\Activate
   python GUI/start_GUI_tabs.py
   ```
 
@@ -104,7 +107,7 @@ line, then run:
 
   ```
   cd /path/to/BatSpot-main
-  python -m venv venv
+  source venv/bin/activate
   python GUI/start_GUI_tabs.py
   ```
 
@@ -156,7 +159,7 @@ line, then run:
 
   ```
   cd /path/to/BatSpot-main
-  python -m venv venv
+  source venv/bin/activate
   python GUI/start_GUI_tabs.py
   ```
 
