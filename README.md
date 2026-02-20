@@ -28,7 +28,8 @@ GUI): Python >=3.8 & <=3.12.
 
 2. Unzip.
 
-3. Click on the BatSpot.exe.
+3. Click on the BatSpot.exe. If it running it is blocked, right-clik and
+   tick `Unblock`.
 
 ### Installing yourself
 
