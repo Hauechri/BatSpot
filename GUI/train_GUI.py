@@ -83,6 +83,10 @@ t_filter_broken_audio_checkbox=sg.Checkbox(text="", default=False, key="-t_filte
 t_min_max_norm_label=sg.Text("Use min max normalization:")
 t_min_max_norm_checkbox=sg.Checkbox(text="", default=True, key="-t_min_max_norm-")
 
+t_samplingrate_label=sg.Text("Samplingrate in Hz:")
+t_samplingrate_input=sg.InputText(key="-t_samplingrate-", default_text="250000")
+t_samplingrate_reset=sg.Button(button_text="default", key="t_default_samplingrate")
+
 t_sequence_len_label=sg.Text("Window size in ms:")
 t_sequence_len_input=sg.InputText(key="-t_sequence_len-", default_text="20")
 t_sequence_len_reset=sg.Button(button_text="default", key="t_default_sequence_len")
@@ -190,6 +194,7 @@ train_layout=[
     [t_start_from_scratch_label,t_start_from_scratch_checkbox],
     [t_augmentation_label,t_augmentation_checkbox],
     [t_filter_broken_audio_label,t_filter_broken_audio_checkbox],
+    [t_samplingrate_label,t_samplingrate_input,t_samplingrate_reset],
     [t_sequence_len_label,t_sequence_len_input,t_sequence_len_reset],
     [t_max_train_epochs_label,t_max_train_epochs_input,t_max_train_epochs_reset],
     [t_early_stopping_patience_epochs_label,t_early_stopping_patience_epochs_input,t_early_stopping_patience_epochs_reset],
@@ -224,6 +229,9 @@ def getTrainGUI():
     return train_column
 
 def TrainhandleInput(event, values, window):
+    if event == "t_default_samplingrate":
+        window['-t_samplingrate-'].update("250000")
+        values['-t_samplingrate-'] = "250000"
     if event == "t_default_sequence_len":
         window['-t_sequence_len-'].update("20")
         values['-t_sequence_len-'] = "20"
@@ -380,6 +388,9 @@ def generateTrainConfig(values):
         file.write("min_max_norm=False" + "\n")
 
     # Number Parameter
+    if values["-t_samplingrate-"] != "":
+        file.write("sr=" + str(values["-t_samplingrate-"]) + "\n")
+
     if values["-t_sequence_len-"] != "":
         file.write("sequence_len=" + str(values["-t_sequence_len-"]) + "\n")
 
@@ -560,6 +571,11 @@ def loadTrainConfig(values, window):
                 window['-t_min_max_norm-'].update(False)
                 values['-t_min_max_norm-'] = False
 
+        if line.__contains__("sr="):
+            val = line.split("=")[1]
+            val = val.split("\n")[0]
+            window['-t_samplingrate-'].update(val)
+            values['-t_samplingrate-'] = val
         if line.__contains__("sequence_len="):
             val = line.split("=")[1]
             val = val.split("\n")[0]
@@ -735,6 +751,9 @@ def startTraining_old(values):
         train_cmd = train_cmd + " --min_max_norm"
 
     # Number Parameter
+    if values["-t_samplingrate-"] != "":
+        train_cmd = train_cmd + " --sr " + values["-t_samplingrate-"]
+
     if values["-t_sequence_len-"] != "":
         train_cmd = train_cmd + " --sequence_len " + values["-t_sequence_len-"]
 
@@ -853,6 +872,7 @@ def gui_values_to_arglist(values):
         args.append("--no_cuda")
 
     # numeric
+    add("--sr", "-t_samplingrate-")
     add("--sequence_len", "-t_sequence_len-")
     add("--max_train_epochs", "-t_max_train_epochs-")
     add("--epochs_per_eval", "-t_epochs_per_eval-")

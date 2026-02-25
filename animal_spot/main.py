@@ -576,6 +576,11 @@ def build_args(arg_list=None):
 
     return args
 
-if __name__ == "__main__":
+def main():
     ARGS = build_args()
     start_train(ARGS)
+
+if __name__ == "__main__":
+    import multiprocessing
+    multiprocessing.freeze_support()
+    main()

@@ -381,6 +381,11 @@ def start_predict(ARGS):
 
     file_log.close()
 
-if __name__ == "__main__":
+def main():
     ARGS = build_args()
     start_predict(ARGS)
+
+if __name__ == "__main__":
+    import multiprocessing
+    multiprocessing.freeze_support()
+    main()
