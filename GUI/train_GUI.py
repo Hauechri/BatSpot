@@ -223,7 +223,45 @@ train_layout=[
     [t_start_prediction_button],
     #[t_output]
 ]
-train_column = [[sg.Column(train_layout, scrollable=True, size=(1000,700))]]
+train_main_column = sg.Column(
+    train_layout,
+    scrollable=True,
+    size=(1000, 700),
+    key="-TRAIN_MAIN-"
+)
+
+train_overlay_column = sg.Column(
+    [[
+        sg.Text(
+            "Training running...\nPlease wait.\n\nCheck console for progress.",
+            justification="center",
+            font=("Arial", 18),
+            text_color="white",
+            background_color="#555555",
+            size=(60, 10)
+        )
+    ]],
+    size=(1000, 700),
+    key="-TRAIN_OVERLAY-",
+    visible=False,
+    background_color="#555555",
+    pad=(0, 0)
+)
+
+train_column = [[
+    sg.Column(
+        [
+            [train_main_column],
+            [train_overlay_column]
+        ],
+        pad=(0, 0)
+    )
+]]
+
+def set_train_overlay(window, visible=True):
+    window["-TRAIN_OVERLAY-"].update(visible=visible)
+    window["-MAIN-"].update(visible=not visible)
+    window.refresh()
 
 def getTrainGUI():
     return train_column
@@ -297,7 +335,10 @@ def TrainhandleInput(event, values, window):
     if event == "t_load_config":
         loadTrainConfig(values=values, window=window)
     if event == "t_start":
-        startTraining(values=values)
+        startTraining(values=values, window=window)
+    #if event == "-TRAIN_DONE-":
+    #    set_train_overlay(window, False)
+    #    sg.popup("Training finished!")
 
 def generateTrainConfig(values):
     file = open(t_save_config_Input.get(), "w")
@@ -896,20 +937,41 @@ def gui_values_to_arglist(values):
 
     return args
 
-def startTraining(values):
+def startTraining(values, window):
+
     arg_list = gui_values_to_arglist(values)
 
-    def run():
-        ARGS = build_args(arg_list)
-        start_train(ARGS)
+    # 🔹 SHOW OVERLAY
+    set_train_overlay(window, True)
 
-    t1 = threading.Thread(target=run, daemon=True)
-    t1.start()
+    window.refresh()  # force draw before blocking
 
+    ARGS = build_args(arg_list)
+    start_train(ARGS)
+
+    # 🔹 HIDE OVERLAY WHEN DONE
+    set_train_overlay(window, False)
+'''
+def startTraining(values, window):
+
+    arg_list = gui_values_to_arglist(values)
+    ARGS = build_args(arg_list)
+
+    # Show overlay
+    set_train_overlay(window, True)
     sg.popup(
-        'Training started in thread ' + str(t1.ident) +
+        'Training started'
         '\nCheck the console for progress.'
     )
+
+    # Run training in background thread managed by PySimpleGUI
+    window.perform_long_operation(
+        lambda: start_train(ARGS),
+        "-TRAIN_DONE-"
+    )
+'''
+
+
 
 """def spawnDaemon(train_cmd):
     # fork the first time (to make a non-session-leader child process)

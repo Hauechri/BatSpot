@@ -59,7 +59,7 @@ p_min_max_norm_label=sg.Text("Use min max normalization:")
 p_min_max_norm_checkbox=sg.Checkbox(text="", default=True, key="-p_min_max_norm-")
 
 p_latent_extract_label=sg.Text("Use latent extraction:")
-p_latent_extract_checkbox=sg.Checkbox(text="", default=True, key="-p_latent_extract-")
+p_latent_extract_checkbox=sg.Checkbox(text="", default=False, key="-p_latent_extract-")
 
 p_batch_size_label=sg.Text("Batch size:")
 p_batch_size_input=sg.InputText(key="-p_batch_size-", default_text="1")
@@ -103,7 +103,46 @@ pred_layout=[
 
 ]
 
-pred_column = [[sg.Column(pred_layout, scrollable=True, size=(1000,700))]]
+pred_main_column = sg.Column(
+    pred_layout,
+    scrollable=True,
+    size=(1000, 700),
+    key="-MAIN-"
+)
+
+pred_overlay_column = sg.Column(
+    [[
+        sg.Text(
+            "Prediction running...\nPlease wait.",
+            justification="center",
+            font="Arial 18",          # safer in Qt than tuple
+            text_color="white",
+            background_color="gray",
+            size=(60, 10)
+        )
+    ]],
+    size=(1000, 700),
+    visible=False,
+    key="-OVERLAY-",
+    background_color="gray",
+    pad=(0, 0)
+)
+
+pred_column = [[
+    sg.Column(
+        [
+            [pred_main_column],
+            [pred_overlay_column]
+        ],
+        pad=(0, 0)
+    )
+]]
+
+def set_overlay(window, visible=True):
+    window["-OVERLAY-"].update(visible=visible)
+    window["-MAIN-"].update(visible=not visible)
+    window.refresh()
+
 def getPredGUI():
     return pred_column
 
@@ -129,7 +168,7 @@ def PredhandleInput(event, values, window):
     if event == "p_load_config":
         loadPredConfig(values=values, window=window)
     if event == "p_start":
-        startPrediction(values=values)
+        startPrediction(values=values, window=window)
 
 
 def generatePredConfig(values):
@@ -324,6 +363,7 @@ def loadPredConfig(values, window):
             values['-p_num_workers-'] = val
     file.close()
 
+#Deprecated Ignore
 def startPrediction_old(values):
     GUI_path = Path(os.path.abspath(os.path.dirname(__file__)))
     ASG_path = GUI_path.parent.absolute()
@@ -404,6 +444,7 @@ def startPrediction_old(values):
              '\nPlease look at the console to follow the prediction progress or errors. '
              'Also please do not start another Thread unless you know what you are doing!')
 
+#Deprecated Ignore
 def startPredCommand(pred_cmd):
     logger = logging.getLogger('training animal-spot')
     stream_handler = logging.StreamHandler()
@@ -457,8 +498,8 @@ def gui_values_to_predict_arglist(values):
 
     return args
 
-def startPrediction(values):
-    # basic validation (keep your popups)
+def startPrediction(values, window):
+
     if values["-p_model_dir-"] == "":
         sg.popup_error("Model directory not specified")
         return
@@ -471,14 +512,17 @@ def startPrediction(values):
 
     arg_list = gui_values_to_predict_arglist(values)
 
-    def run():
-        ARGS = build_args(arg_list)
-        start_predict(ARGS)
+    set_overlay(window, True)
 
-    t1 = threading.Thread(target=run, daemon=True)
-    t1.start()
+    window.refresh()  # force draw before blocking call
 
     sg.popup(
-        'The Prediction has started in Thread ' + str(t1.ident) +
-        '\nPlease look at the console to follow the prediction progress or errors.'
+        'Prediction started!'
+        '\nCheck the console for progress.'
     )
+
+    ARGS = build_args(arg_list)
+    start_predict(ARGS)
+
+    set_overlay(window, False)
+

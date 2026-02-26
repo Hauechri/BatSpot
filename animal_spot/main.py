@@ -320,7 +320,7 @@ def get_audio_files(ARGS, input_data, log):
         log.info("Found {} audio files for training.".format(len(audio_files)))
         if len(audio_files) == 0:
             log.close()
-            exit(1)
+            #exit(1)
     return audio_files
 
 """
@@ -394,6 +394,8 @@ def get_classes(database):
 
 
 def start_train(ARGS):
+    import multiprocessing
+    multiprocessing.freeze_support()
     log = Logger("TRAIN", ARGS.debug, ARGS.log_dir)
     encoderOpts = DefaultEncoderOpts.copy()
     classifierOpts = DefaultClassifierOpts.copy()

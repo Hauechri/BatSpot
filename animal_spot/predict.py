@@ -171,6 +171,8 @@ def build_args(arg_list=None):
     return args
 
 def start_predict(ARGS):
+    import multiprocessing
+    multiprocessing.freeze_support()
     log = PredictionLogger("PREDICT", ARGS.debug, ARGS.log_dir)
 
     models = {"encoder": 1, "classifier": 2}
