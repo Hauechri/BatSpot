@@ -287,14 +287,14 @@ parser.add_argument(
     help="Use a transfer Model in trainer.",
 )
 
-ARGS = parser.parse_args()
-ARGS.cuda = torch.cuda.is_available() and ARGS.cuda
-ARGS.device = torch.device("cuda") if ARGS.cuda else torch.device("cpu")
+#ARGS = parser.parse_args()
+#ARGS.cuda = torch.cuda.is_available() and ARGS.cuda
+#ARGS.device = torch.device("cuda") if ARGS.cuda else torch.device("cpu")
 
-if ARGS.conv_kernel_size is not None and len(ARGS.conv_kernel_size):
-    ARGS.conv_kernel_size = ARGS.conv_kernel_size[0]
+#if ARGS.conv_kernel_size is not None and len(ARGS.conv_kernel_size):
+#    ARGS.conv_kernel_size = ARGS.conv_kernel_size[0]
 
-log = Logger("TRAIN", ARGS.debug, ARGS.log_dir)
+
 
 """
 Get audio all audio files from the given data directory except they are broken.
@@ -326,13 +326,13 @@ def get_audio_files(ARGS, input_data, log):
 """
 Save the trained model and corresponding options.
 """
-def save_model(model, encoder, encoderOpts, classifier, classifierOpts, dataOpts, path, class_dist_dict, use_jit=False, min_max=False):
+def save_model(ARGS, model, encoder, encoderOpts, classifier, classifierOpts, dataOpts, path, class_dist_dict, use_jit=False, min_max=False):
     model = model.cpu()
     encoder = encoder.cpu()
     classifier = classifier.cpu()
     encoder_state_dict = encoder.state_dict()
     classifier_state_dict = classifier.state_dict()
-
+    log = Logger("TRAIN", ARGS.debug, ARGS.log_dir)
     save_dict = {
         "encoderOpts": encoderOpts,
         "classifierOpts": classifierOpts,
@@ -561,14 +561,15 @@ def start_train(ARGS):
 
     class_dist_dict = datasets["train"].class_dist_dict
 
-    save_model(model, encoder, encoderOpts, classifier, classifierOpts, dataOpts, path, class_dist_dict, use_jit=ARGS.jit_save, min_max=ARGS.min_max_norm)
+    save_model(ARGS, model, encoder, encoderOpts, classifier, classifierOpts, dataOpts, path, class_dist_dict, use_jit=ARGS.jit_save, min_max=ARGS.min_max_norm)
 
     log.close()
 """
 Main function to compute data preprocessing, network training, evaluation, and saving.
 """
 def build_args(arg_list=None):
-    args = parser.parse_args(arg_list)
+    # Safe parse: will ignore unknown args (like --multiprocessing-fork)
+    args, unknown = parser.parse_known_args(arg_list)
 
     args.cuda = torch.cuda.is_available() and args.cuda
     args.device = torch.device("cuda") if args.cuda else torch.device("cpu")
@@ -579,8 +580,10 @@ def build_args(arg_list=None):
     return args
 
 def main():
+    # Only parse CLI args if running standalone
     ARGS = build_args()
     start_train(ARGS)
+
 
 if __name__ == "__main__":
     import multiprocessing

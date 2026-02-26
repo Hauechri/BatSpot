@@ -50,7 +50,7 @@ p_no_cuda_label=sg.Text("Use cuda:")
 p_no_cuda_checkbox=sg.Checkbox(text="", default=True, key="-p_no_cuda-")
 
 p_visualize_label=sg.Text("Visualize output:")
-p_visualize_checkbox=sg.Checkbox(text="", default=True, key="-p_visualize-")
+p_visualize_checkbox=sg.Checkbox(text="", default=False, key="-p_visualize-")
 
 p_jit_load_label=sg.Text("Use jit load:")
 p_jit_load_checkbox=sg.Checkbox(text="", default=False, key="-p_jit_load-")

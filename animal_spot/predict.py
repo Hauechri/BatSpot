@@ -163,11 +163,10 @@ Main function to compute prediction (segmentation) by using a trained model toge
 
 
 def build_args(arg_list=None):
-    args = parser.parse_args(arg_list)
-
+    # Safe parse, ignores unknown args like --multiprocessing-fork
+    args, unknown = parser.parse_known_args(arg_list)
     args.cuda = torch.cuda.is_available() and args.cuda
     args.device = torch.device("cuda") if args.cuda else torch.device("cpu")
-
     return args
 
 def start_predict(ARGS):
