@@ -233,7 +233,7 @@ train_main_column = sg.Column(
 train_overlay_column = sg.Column(
     [[
         sg.Text(
-            "Training running...\nPlease wait.\n\nCheck console for progress.",
+            "Training running...\nPlease wait.\nCheck console for progress.",
             justification="center",
             font=("Arial", 18),
             text_color="white",
@@ -260,7 +260,7 @@ train_column = [[
 
 def set_train_overlay(window, visible=True):
     window["-TRAIN_OVERLAY-"].update(visible=visible)
-    window["-MAIN-"].update(visible=not visible)
+    #window["-MAIN-"].update(visible=not visible)
     window.refresh()
 
 def getTrainGUI():

@@ -107,24 +107,24 @@ pred_main_column = sg.Column(
     pred_layout,
     scrollable=True,
     size=(1000, 700),
-    key="-MAIN-"
+    key="-PRED_MAIN-"
 )
 
 pred_overlay_column = sg.Column(
     [[
         sg.Text(
-            "Prediction running...\nPlease wait.",
+            "Prediction running...\nPlease wait.\nCheck console for progress.",
             justification="center",
             font="Arial 18",          # safer in Qt than tuple
             text_color="white",
-            background_color="gray",
+            background_color="#555555",
             size=(60, 10)
         )
     ]],
     size=(1000, 700),
     visible=False,
-    key="-OVERLAY-",
-    background_color="gray",
+    key="-PRED_OVERLAY-",
+    background_color="#555555",
     pad=(0, 0)
 )
 
@@ -139,8 +139,8 @@ pred_column = [[
 ]]
 
 def set_overlay(window, visible=True):
-    window["-OVERLAY-"].update(visible=visible)
-    window["-MAIN-"].update(visible=not visible)
+    window["-PRED_OVERLAY-"].update(visible=visible)
+    #window["-PRED_MAIN-"].update(visible=not visible)
     window.refresh()
 
 def getPredGUI():
@@ -515,11 +515,6 @@ def startPrediction(values, window):
     set_overlay(window, True)
 
     window.refresh()  # force draw before blocking call
-
-    sg.popup(
-        'Prediction started!'
-        '\nCheck the console for progress.'
-    )
 
     ARGS = build_args(arg_list)
     start_predict(ARGS)
