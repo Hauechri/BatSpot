@@ -12,8 +12,8 @@ Repository for BatSpot - a CNN tool to detect and classify bat vocalisations.
 
 # Requirements
 
-For the GUI: none (if using the Windows exe) or Python 3.10 (if installing
-in any other way).
+For the GUI: none (if using the Windows exe, which includes Python and all 
+required modules) or Python 3.10 (if installing in any other way).
 
 For the underlying ANIMAL-SPOT source code (which can still run without the
 GUI): Python >=3.8 & <=3.12.
@@ -22,25 +22,26 @@ GUI): Python >=3.8 & <=3.12.
 
 ## Windows
 
-### Using the exe
+### If installing using the exe file
 
 1. Download this zip file: **link**.
 
 2. Unzip.
 
-3. Click on the BatSpot.exe.
+3. Click on `BatSpot.exe`. If running it is blocked, right-click, choose 
+Properties and tick Unblock in the General tab.
 
-### Installing yourself
+### If installing from Command Prompt
 
-0. Make sure you have the correct version of Python (version 3.10.11). To test 
-which version you have, simply open a Windows PowerShell and type  
+0. Make sure you have the correct version of Python (version 3.10). To test 
+which version you have, simply open a Windows Command Prompt and type  
 `python -- version`. To download another version, go to this link: 
 <https://www.python.org/downloads/> and make sure it is set as the default. 
 Also, make sure to tick `Add python to PATH` during installation.
 
 1. Download this repository and unzip.
 
-2. Open a Command Prompt window (not PowerShell), make a virtual environment 
+2. Open a Command Prompt window (not Command Prompt), make a virtual environment 
 and install all requirements. To do this, copy the full path to the repository 
 and update the first line, then run:
 
@@ -249,7 +250,9 @@ sub folders (see below).
 2. Start the GUI. (See installation guide above.)
 
 3. Fill out the required fields, or load a previous config file using the 
-`Load settings` button.
+`Load settings` button. When opening the tab, some fields are filled with 
+defaults. It is also possible to store current settings using the 
+`Save settings` button.
 
   - `Path folder training examples`:path to the folder with the audio examples 
   (.wav)
@@ -335,7 +338,7 @@ sub folders (see below).
   - `Max pooling`: only touch if you know what you are doing.
   
 4. Once ready, press `Start training`. The training will start in the 
-PowerShell/Terminal console in the background and can be monitored there. 
+Command Prompt/Terminal console in the background and can be monitored there. 
 Training can be stopped by pressing `ctrl + z` or `cmd + z` in the console. 
 After closing and restarting the GUI, you can restart training using the 
 checkpoints. 
@@ -386,7 +389,9 @@ extension `.WAV`:
 2. Start the GUI. (See installation guide above.)
 
 3. Fill out the required fields, or load a previous config file using the 
-`Load settings` button. Predictions are made using a sliding window. Adjacent
+`Load settings` button. When opening the tab, some fields are filled with 
+defaults. It is also possible to store current settings using the 
+`Save settings` button. Predictions are made using a sliding window. Adjacent
 windows with the same prediction are merged into a single annotation during 
 the translation step.
 
@@ -410,7 +415,7 @@ the translation step.
   - `Number of worker`: only touch if you know what you are doing.
   
 4. Once ready, press `Start prediction`. The training will start in the 
-PowerShell/Terminal console in the background and can be monitored there. The 
+Command Prompt/Terminal console in the background and can be monitored there. The 
 prediction output are log files, with predictions for every single window. To
 translate these into Raven Selection tables, see the next step.
 
@@ -423,7 +428,9 @@ folder without sub folders.
 1. Start the GUI. (See installation guide above.)
 
 2. Fill out the required fields, or load a previous config file using the 
-`Load settings` button.
+`Load settings` button. When opening the tab, some fields are filled with 
+defaults. It is also possible to store current settings using the 
+`Save settings` button.
 
   - `Path folder prediction output`: path to the folder containing the 
   prediction files.
