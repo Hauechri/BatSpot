@@ -24,7 +24,7 @@ t_data_dir_label=sg.Text("Path folder training examples:")
 t_data_dir_input=sg.InputText(key="-t_data_dir-")
 t_data_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
-t_noise_dir_label=sg.Text("Path folder augmentation noise examples (optional):")
+t_noise_dir_label=sg.Text("Path folder augmentation examples (optional):")
 t_noise_dir_input=sg.InputText(key="-t_noise_dir-")
 t_noise_dir_filebrowser=sg.FolderBrowse(initial_folder=working_directory)
 
@@ -82,6 +82,10 @@ t_filter_broken_audio_checkbox=sg.Checkbox(text="", default=False, key="-t_filte
 
 t_min_max_norm_label=sg.Text("Use min max normalization:")
 t_min_max_norm_checkbox=sg.Checkbox(text="", default=True, key="-t_min_max_norm-")
+
+t_samplingrate_label=sg.Text("Sampling rate in Hz:")
+t_samplingrate_input=sg.InputText(key="-t_samplingrate-", default_text="250000")
+t_samplingrate_reset=sg.Button(button_text="default", key="t_default_samplingrate")
 
 t_sequence_len_label=sg.Text("Window size in ms:")
 t_sequence_len_input=sg.InputText(key="-t_sequence_len-", default_text="20")
@@ -190,11 +194,12 @@ train_layout=[
     [t_start_from_scratch_label,t_start_from_scratch_checkbox],
     [t_augmentation_label,t_augmentation_checkbox],
     [t_filter_broken_audio_label,t_filter_broken_audio_checkbox],
+    [t_samplingrate_label,t_samplingrate_input,t_samplingrate_reset],
     [t_sequence_len_label,t_sequence_len_input,t_sequence_len_reset],
     [t_max_train_epochs_label,t_max_train_epochs_input,t_max_train_epochs_reset],
     [t_early_stopping_patience_epochs_label,t_early_stopping_patience_epochs_input,t_early_stopping_patience_epochs_reset],
-    [t_n_freq_bins_label,t_n_freq_bins_input,t_n_freq_bins_reset],
     [t_n_fft_label,t_n_fft_input,t_n_fft_reset],
+    [t_hop_length_label,t_hop_length_input,t_hop_length_reset],
     [t_fmin_label,t_fmin_input,t_fmin_reset],
     [t_fmax_label,t_fmax_input,t_fmax_reset],
     [t_num_classes_label,t_num_classes_input,t_num_classes_reset],
@@ -209,7 +214,7 @@ train_layout=[
     [t_lr_patience_epochs_label,t_lr_patience_epochs_input,t_lr_patience_epochs_reset],
     [t_lr_decay_factor_label,t_lr_decay_factor_input,t_lr_decay_factor_reset],
     [t_freq_compression_label,t_freq_compression_input,t_freq_compression_reset],
-    [t_hop_length_label,t_hop_length_input,t_hop_length_reset],
+    [t_n_freq_bins_label,t_n_freq_bins_input,t_n_freq_bins_reset],
     [t_resnet_label,t_resnet_input,t_resnet_reset],
     [t_conv_kernel_size_label,t_conv_kernel_size_input,t_conv_kernel_size_reset],
     [t_max_pool_label,t_max_pool_input,t_max_pool_reset],
@@ -218,12 +223,53 @@ train_layout=[
     [t_start_prediction_button],
     #[t_output]
 ]
-train_column = [[sg.Column(train_layout, scrollable=True, size=(1000,700))]]
+train_main_column = sg.Column(
+    train_layout,
+    scrollable=True,
+    size=(1000, 700),
+    key="-TRAIN_MAIN-"
+)
+
+train_overlay_column = sg.Column(
+    [[
+        sg.Text(
+            "Training running...\nPlease wait.\nCheck console for progress.",
+            justification="center",
+            font=("Arial", 18),
+            text_color="white",
+            background_color="#555555",
+            size=(60, 10)
+        )
+    ]],
+    size=(1000, 700),
+    key="-TRAIN_OVERLAY-",
+    visible=False,
+    background_color="#555555",
+    pad=(0, 0)
+)
+
+train_column = [[
+    sg.Column(
+        [
+            [train_main_column],
+            [train_overlay_column]
+        ],
+        pad=(0, 0)
+    )
+]]
+
+def set_train_overlay(window, visible=True):
+    window["-TRAIN_OVERLAY-"].update(visible=visible)
+    #window["-MAIN-"].update(visible=not visible)
+    window.refresh()
 
 def getTrainGUI():
     return train_column
 
 def TrainhandleInput(event, values, window):
+    if event == "t_default_samplingrate":
+        window['-t_samplingrate-'].update("250000")
+        values['-t_samplingrate-'] = "250000"
     if event == "t_default_sequence_len":
         window['-t_sequence_len-'].update("20")
         values['-t_sequence_len-'] = "20"
@@ -289,7 +335,10 @@ def TrainhandleInput(event, values, window):
     if event == "t_load_config":
         loadTrainConfig(values=values, window=window)
     if event == "t_start":
-        startTraining(values=values)
+        startTraining(values=values, window=window)
+    #if event == "-TRAIN_DONE-":
+    #    set_train_overlay(window, False)
+    #    sg.popup("Training finished!")
 
 def generateTrainConfig(values):
     file = open(t_save_config_Input.get(), "w")
@@ -380,6 +429,9 @@ def generateTrainConfig(values):
         file.write("min_max_norm=False" + "\n")
 
     # Number Parameter
+    if values["-t_samplingrate-"] != "":
+        file.write("sr=" + str(values["-t_samplingrate-"]) + "\n")
+
     if values["-t_sequence_len-"] != "":
         file.write("sequence_len=" + str(values["-t_sequence_len-"]) + "\n")
 
@@ -560,6 +612,11 @@ def loadTrainConfig(values, window):
                 window['-t_min_max_norm-'].update(False)
                 values['-t_min_max_norm-'] = False
 
+        if line.__contains__("sr="):
+            val = line.split("=")[1]
+            val = val.split("\n")[0]
+            window['-t_samplingrate-'].update(val)
+            values['-t_samplingrate-'] = val
         if line.__contains__("sequence_len="):
             val = line.split("=")[1]
             val = val.split("\n")[0]
@@ -735,6 +792,9 @@ def startTraining_old(values):
         train_cmd = train_cmd + " --min_max_norm"
 
     # Number Parameter
+    if values["-t_samplingrate-"] != "":
+        train_cmd = train_cmd + " --sr " + values["-t_samplingrate-"]
+
     if values["-t_sequence_len-"] != "":
         train_cmd = train_cmd + " --sequence_len " + values["-t_sequence_len-"]
 
@@ -853,6 +913,7 @@ def gui_values_to_arglist(values):
         args.append("--no_cuda")
 
     # numeric
+    add("--sr", "-t_samplingrate-")
     add("--sequence_len", "-t_sequence_len-")
     add("--max_train_epochs", "-t_max_train_epochs-")
     add("--epochs_per_eval", "-t_epochs_per_eval-")
@@ -876,20 +937,41 @@ def gui_values_to_arglist(values):
 
     return args
 
-def startTraining(values):
+def startTraining(values, window):
+
     arg_list = gui_values_to_arglist(values)
 
-    def run():
-        ARGS = build_args(arg_list)
-        start_train(ARGS)
+    # 🔹 SHOW OVERLAY
+    set_train_overlay(window, True)
 
-    t1 = threading.Thread(target=run, daemon=True)
-    t1.start()
+    window.refresh()  # force draw before blocking
 
+    ARGS = build_args(arg_list)
+    start_train(ARGS)
+
+    # 🔹 HIDE OVERLAY WHEN DONE
+    set_train_overlay(window, False)
+'''
+def startTraining(values, window):
+
+    arg_list = gui_values_to_arglist(values)
+    ARGS = build_args(arg_list)
+
+    # Show overlay
+    set_train_overlay(window, True)
     sg.popup(
-        'Training started in thread ' + str(t1.ident) +
+        'Training started'
         '\nCheck the console for progress.'
     )
+
+    # Run training in background thread managed by PySimpleGUI
+    window.perform_long_operation(
+        lambda: start_train(ARGS),
+        "-TRAIN_DONE-"
+    )
+'''
+
+
 
 """def spawnDaemon(train_cmd):
     # fork the first time (to make a non-session-leader child process)
