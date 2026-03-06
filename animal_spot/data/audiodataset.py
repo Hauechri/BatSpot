@@ -651,8 +651,8 @@ class Dataset(AudioDataset):
 
     def get_class_type(self, file_name):
         if platform.system() == "Windows":
-            #class_name = file_name.split("\\")[-1].split("-", 1)[0]
-            class_name = file_name.split("/")[-1].split("-", 1)[0]
+            class_name = file_name.split("\\")[-1].split("-", 1)[0]
+            #class_name = file_name.split("/")[-1].split("-", 1)[0]
         else:
             class_name = file_name.split("/")[-1].split("-", 1)[0]
         return self.class_dist_dict[class_name]
