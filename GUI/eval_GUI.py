@@ -26,7 +26,7 @@ e_save_config_Input=sg.Input(key="e_save_config", enable_events=True, visible=Fa
 e_load_config_button=sg.FileBrowse(button_text="Load settings")
 e_load_config_Input=sg.Input(key="e_load_config", enable_events=True, visible=False)
 
-e_start_prediction_button=sg.Button(button_text="Start evaluation", key="e_start")
+e_start_prediction_button=sg.Button(button_text="Start translation", key="e_start")
 #e_output = sg.Output(size=(67, 10))
 
 #sg.Print('Re-routing eval_GUI to Debug stdout', do_not_reroute_stdout=False)
@@ -488,3 +488,4 @@ def startEvaluation(values):
     evaluator.config_data = config_data
     evaluator.init_logger()
     evaluator.process()
+
