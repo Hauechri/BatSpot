@@ -82,8 +82,8 @@ p_start_prediction_button=sg.Button(button_text="Start prediction", key="p_start
 pred_layout=[
     #[p_src_dir_label, p_src_dir_input, p_src_dir_filebrowser],
     [p_model_dir_label, p_model_dir_input, p_model_dir_filebrowser],
-    [p_log_dir_label, p_log_dir_input, p_log_dir_filebrowser],
     [p_input_file_label, p_input_file_input, p_input_file_filebrowser],
+    [p_log_dir_label, p_log_dir_input, p_log_dir_filebrowser],
     [p_output_dir_label, p_output_dir_input, p_output_dir_filebrowser],
     # [p_threshold_label, p_threshold_input, p_threshold_reset],
     [p_debug_label, p_debug_checkbox],
@@ -300,7 +300,7 @@ def loadPredConfig(values, window):
         if line.__contains__("sequence_len="):
             val = line.split("=")[1]
             val = val.split("\n")[0]
-            window['-p_sequence_len-'].update(val)
+            window['-p_sequence_len-'].update(str(val))
             values['-p_sequence_len-'] = val
         if line.__contains__("hop="):
             val = line.split("=")[1]
