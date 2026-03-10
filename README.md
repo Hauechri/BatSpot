@@ -1,6 +1,11 @@
+# BatSpot README
+
 Repository for BatSpot - a CNN tool to detect and classify bat vocalisations.
 BatSpot is based on ANIMAL-SPOT. For details on implementations see 
 <https://www.nature.com/articles/s41598-022-26429-y>.
+
+A pre-print introducing BatSpot with worked examples and open-source datasets
+can be found here: **include link**.
 
 # Content
 
@@ -27,7 +32,7 @@ GUI): Python >=3.8 & <=3.12.
 
 ### If installing using the exe file
 
-1. Download this zip file: **link**.
+1. Download BatSpot.zip from this link: <https://zenodo.org/records/18607461?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjhhM2EwYjNmLTQ0YWItNGU1My1iYTE4LTdmMzZjODZkNGM3NSIsImRhdGEiOnt9LCJyYW5kb20iOiI0NzFlYWVjZTVlZDRiOGRhM2ZlMDliNmQ3Mjc5MTY2YiJ9.a8v5Y3t4pgn-f8ViyLUZZNEELiIZ3lc4WpI_MG2blO8w0oqqSwSh3a3gPiSWD1_tAK_BIevNcckGuzpLHguAdA>.
 
 2. Unzip.
 
